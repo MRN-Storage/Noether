@@ -21,13 +21,13 @@
   # LUKS on top of the bcache device (bcache0 = cached md0)
   # hardware-configuration.nix will generate this block with the real UUID â€”
   # the entry below is illustrative; confirm/merge with the generated file.
-  boot.initrd.luks.devices."md0_crypt" = {
+  boot.initrd.luks.devices."cryptdata" = {
     device = "/dev/bcache0";   # or by UUID: "/dev/disk/by-uuid/<uuid-of-bcache0>"
     allowDiscards = true;      # optional; enable if bcache writeback + TRIM is desired
   };
 
-  # boot.initrd.services.lvm.enable = true;  # already added by hardware-configuration.nix
-
+  boot.initrd.services.lvm.enable = true;  # already added by hardware-configuration.nix
+  boot.initrd.systemPackages = [ pkgs.thin-provisioning-tools ];
   networking.firewall.allowedTCPPorts = [ 80 443 22 ];
   networking.networkmanager.enable = true;
 
