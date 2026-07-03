@@ -26,7 +26,7 @@
     allowDiscards = true;      # optional; enable if bcache writeback + TRIM is desired
   };
 
-  # boot.initrd.services.lvm.enable = true;  # already added by hardware-configuration.nix
+  boot.initrd.services.lvm.enable = true;  # already added by hardware-configuration.nix
 
   networking.firewall.allowedTCPPorts = [ 80 443 22 ];
   networking.networkmanager.enable = true;
