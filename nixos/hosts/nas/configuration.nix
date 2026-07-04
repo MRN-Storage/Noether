@@ -67,8 +67,8 @@ in
   users.users.admin = {
     isNormalUser = true;
     extraGroups = [ "wheel" ];
-    openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDs68sW1qgiIPhXAB2U3hTazPNZ3SrYZlN7w7OEQTbgO ell@lovelace"
+    openssh.authorizedKeys.keyFiles = [
+      /etc/keyshare/key.pub
     ];
   };
 
