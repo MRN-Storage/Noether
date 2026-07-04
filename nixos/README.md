@@ -30,6 +30,6 @@ git add ./hosts/nas/hardware-configuration.nix
 # 5. Install
 sudo cp -r ./ /mnt/etc/nixos
 cd !$
-sudo nixos-install --root /mnt --flake .#nas
+sudo nixos-install --impure --root /mnt --flake .#nas
 ```
 
