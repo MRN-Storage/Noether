@@ -19,9 +19,6 @@ echo "==> Setting up bcache"
 modprobe bcache
 
 make-bcache \
-  --block 4k \
-  --bucket 2M \
-  --cache-mode writeback \
   -B "${RAID_DEV}" \
   -C "${NVME_CACHE}" \
   --wipe-bcache
