@@ -2,6 +2,8 @@
 {
   networking.hostName = "nas";
 
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
   # Bootloader (systemd-boot on the NVMe ESP)
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -90,7 +92,7 @@ boot.initrd.luks.devices."cryptdata" = {
     }
   ];
 
-  environment.systemPackages = with pkgs; [ neovim curl wget vim git htop lvm2 mdadm bcache-tools cryptsetup ];
+  environment.systemPackages = with pkgs; [ neovim curl wget vim git htop lvm2 tree mdadm bcache-tools cryptsetup ];
 
   system.stateVersion = "26.05"; # keep this pinned to the release you installed with
 }
