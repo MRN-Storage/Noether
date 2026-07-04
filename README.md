@@ -47,3 +47,16 @@ sudo cp -r ./ /mnt/etc/nixos
 cd !$
 sudo nixos-install --impure --root /mnt --flake .#nas
 ```
+
+## Keyfile on Boot Stick
+```sh
+# 1. Write random key to USB stick (replace /dev/sdX with your USB)
+sudo dd if=/dev/urandom of=/dev/sdX bs=512 count=8
+
+# 2. Add USB as a LUKS key
+sudo cryptsetup luksAddKey /dev/bcache0 /dev/sdc --new-keyfile-size 4096
+
+# 3. Find the stable by-id path for your USB
+ls -l /dev/disk/by-id/ | grep usb
+# Paste the result into keyFile in configuration.nix
+```

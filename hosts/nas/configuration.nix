@@ -43,6 +43,17 @@ in
     allowDiscards = false; # bcache handles caching; leave TRIM off on LUKS
   };
 
+boot.initrd.luks.devices."cryptdata" = {
+    device = "/dev/bcache0";   # or by UUID: "/dev/disk/by-uuid/<uuid-of-bcache0>"
+    allowDiscards = true;      # optional; enable if bcache writeback + TRIM is desired
+
+    # USB stick keyfile — the raw USB device/partition is used directly as the key.
+    keyFile = "/dev/disk/by-id/usb-USB_Flash_Disk_SCY0000000039178-0:0";
+    keyFileSize = 4096;
+    fallbackToPassword = true;
+  };
+
+
   boot.initrd.services.lvm.enable = true;
 
   # disko generates fileSystems for / and /boot from disko.nix.
