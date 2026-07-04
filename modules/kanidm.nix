@@ -3,6 +3,7 @@
 {
   services.kanidm = {
     enableServer = true;
+    package = pkgs.kanidm_1_10; 
     serverSettings = {
       domain = "auth.nas.lan";
       origin = "https://auth.nas.lan";
