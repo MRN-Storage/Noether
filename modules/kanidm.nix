@@ -10,7 +10,7 @@
       # the key privately instead of committing it to your flake repo.
       tls_chain = "/var/lib/kanidm/chain.pem";
       tls_key = "/var/lib/kanidm/key.pem";
-      bindaddress = "127.0.0.1:8443"; # nginx terminates public TLS and proxies here
+      bindaddress = "0.0.0.0:8443"; # nginx terminates public TLS and proxies here
     };
   };
 
