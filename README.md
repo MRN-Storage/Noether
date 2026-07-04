@@ -14,10 +14,12 @@ and clone this repository.
 
 ```sh
 # 1. Partition disks + assemble RAID
-nix run github:nix-community/disko -- --mode format ./disko.nix
+sudo nix run github:nix-community/disko \
+    --extra-experimental-features "nix-command flakes" -- \
+    --mode format ./disko.nix
 
 # 2. bcache + LUKS + LVM (one-time)
-bash post-disko.sh
+sudo bash post-disko.sh
 
 # 3. Paste UUIDs from install.sh output into nixos.nix
 LUKS_UUID=$(blkid -s UUID -o value /dev/bcache0)
