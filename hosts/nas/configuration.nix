@@ -1,6 +1,13 @@
-{ config, pkgs, ... }:
+{ config, pkgs, self, ... }:
 {
   networking.hostName = "nas";
+  
+  system.nixos.label = 
+   let
+    branch = if (self.sourceInfo ? branch) then self.sourceInfo.branch else "local";
+    commit = if (self ? shortRev) then "-${self.shortRev}" else "-dirty";
+   in 
+    "${branch}${commit}"; 
 
   # Bootloader (systemd-boot on the NVMe ESP)
   boot.loader.systemd-boot.enable = true;
