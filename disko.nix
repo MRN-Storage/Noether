@@ -85,6 +85,7 @@
     mdadm.md0 = {
       type  = "mdadm";
       level = 1;
+      mdadmExtraOptions = [ "--bitmap=internal" ];
     };
 
     # ============================================================
