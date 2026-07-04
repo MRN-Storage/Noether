@@ -74,8 +74,8 @@ boot.initrd.luks.devices."cryptdata" = {
   users.users.admin = {
     isNormalUser = true;
     extraGroups = [ "wheel" ];
-    openssh.authorizedKeys.keyFiles = [
-      /etc/nixos/iso/nixos.key.pub
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICFLSh8+F3ZA0H6F8IBClfrMfDJIyYvt7Ytj3CeanonX ell@dirac"
     ];
   };
 
