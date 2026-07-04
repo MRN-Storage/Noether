@@ -4,12 +4,11 @@ and `cp -r /opt/Noether . && cd Noether/nixos`.
 
 ```sh
 # 1. Partition disks + assemble RAID
-sudo nix run github:nix-community/disko \
-    --extra-experimental-features "nix-command flakes" -- \
+sudo nix run github:nix-community/disko -- \
     --mode format ./hosts/nas/disko.nix
 
 # 2. bcache + LUKS + LVM (one-time)
-sudo bash post-disko.sh
+sudo bash ../scripts/post-disko.sh
 
 # 3. Paste UUIDs from install.sh output into nixos.nix
 LUKS_UUID=$(blkid -s UUID -o value /dev/bcache0)
