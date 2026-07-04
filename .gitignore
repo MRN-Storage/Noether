@@ -1,5 +1,3 @@
 iso/*.key
 iso/*.key.pub
 iso/result
-
-./flake.lock
