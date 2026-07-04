@@ -47,17 +47,17 @@ in
 
   # disko generates fileSystems for / and /boot from disko.nix.
   # /data/* are on LVM/bcache/LUKS which disko cannot model, so declare them here.
-  fileSystems."/data/immich" = {
-    device  = "/dev/vgdata/immich";
-    fsType  = "ext4";
-    options = [ "defaults" "nofail" ];
-  };
+  # fileSystems."/data/immich" = {
+  #   device  = "/dev/vgdata/immich";
+  #   fsType  = "ext4";
+  #   options = [ "defaults" "nofail" ];
+  # };
 
-  fileSystems."/data/shared" = {
-    device  = "/dev/vgdata/shared";
-    fsType  = "ext4";
-    options = [ "defaults" "nofail" ];
-  };
+  # fileSystems."/data/shared" = {
+  #   device  = "/dev/vgdata/shared";
+  #   fsType  = "ext4";
+  #   options = [ "defaults" "nofail" ];
+  # };
   networking.firewall.allowedTCPPorts = [ 80 443 22 ];
   networking.networkmanager.enable = true;
 
