@@ -16,7 +16,7 @@
       modules = [
         disko.nixosModules.disko
         ./hosts/nas/configuration.nix
-        ./hosts/nas/hardware-configuration.nix
+        # ./hosts/nas/hardware-configuration.nix
         ./hosts/nas/disko.nix
         # ./modules/storage.nix
         # ./modules/immich.nix
