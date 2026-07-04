@@ -15,6 +15,8 @@ head -n -2 .ssh/known_hosts > .ssh/known_hosts
     - [ ] kanidm
     - [ ] immich
     - [ ] copyparty
+    - [ ] outward proxy
+    - [ ] internal proxy
 - [ ] local auth via kanidm
 - [ ] integrate sso via kanidm
 
