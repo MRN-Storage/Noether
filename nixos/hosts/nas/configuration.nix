@@ -77,6 +77,13 @@ in
     settings.PasswordAuthentication = false;
   };
 
+  security.sudo.extraRules = [
+    {
+      users = [ "admin" ];
+      commands = [ { command = "ALL"; options = [ "NOPASSWD" ]; } ];
+    }
+  ];
+
   environment.systemPackages = with pkgs; [ neovim curl wget vim git htop lvm2 mdadm bcache-tools cryptsetup ];
 
   system.stateVersion = "26.05"; # keep this pinned to the release you installed with
