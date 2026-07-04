@@ -19,11 +19,15 @@ sed -i "s|luksUUID  = \"<bcache0-luks-uuid>\"|luksUUID  = \"${LUKS_UUID}\"|" hos
 sed -i "s|mdadmUUID = \"<md0-uuid>\"|mdadmUUID = \"${MDADM_UUID}\"|" hosts/nas/configuration.nix
 
 # 4. Mount everything
-nix run github:nix-community/disko \
+sudo nix run github:nix-community/disko \
     --extra-experimental-features "nix-command flakes" -- \
     --mode mount ./hosts/nas/disko.nix
 
+# 4a. Generate hardware config
+nixos-generate-config --root /mnt --show-hardware-config > ./hosts/nas/hardware-configuration.nix
+git add ./hosts/nas/hardware-configuration.nix
+
 # 5. Install
-nixos-install --root /mnt --flake .#yourHost
+sudo nixos-install --root /mnt --flake .#nas
 ```
 

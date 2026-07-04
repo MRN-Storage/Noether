@@ -58,7 +58,6 @@ in
     fsType  = "ext4";
     options = [ "defaults" "nofail" ];
   };
-  boot.initrd.systemPackages = [ pkgs.thin-provisioning-tools ];
   networking.firewall.allowedTCPPorts = [ 80 443 22 ];
   networking.networkmanager.enable = true;
 
