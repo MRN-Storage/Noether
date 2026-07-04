@@ -12,7 +12,7 @@ sudo bash ../scripts/post-disko.sh
 
 # 3. Paste UUIDs from install.sh output into nixos.nix
 LUKS_UUID=$(blkid -s UUID -o value /dev/bcache0)
-MDADM_UUID=$(mdadm --detail /dev/md0 | awk '/UUID/{print $3}')
+MDADM_UUID=$(sudo mdadm --detail /dev/md0 | awk '/UUID/{print $3}')
 
 sed -i "s|luksUUID  = \"<bcache0-luks-uuid>\"|luksUUID  = \"${LUKS_UUID}\"|" hosts/nas/configuration.nix
 sed -i "s|mdadmUUID = \"<md0-uuid>\"|mdadmUUID = \"${MDADM_UUID}\"|" hosts/nas/configuration.nix
