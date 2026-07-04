@@ -1,11 +1,8 @@
 { config, pkgs, ... }:
-let
-  # Fill in after running install.sh, then run the sed commands below
-  luksUUID  = "<bcache0-luks-uuid>";  # blkid -s UUID -o value /dev/bcache0
-  mdadmUUID = "<md0-uuid>";           # mdadm --detail /dev/md0 | grep UUID
-in
 {
   networking.hostName = "nas";
+
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # Bootloader (systemd-boot on the NVMe ESP)
   boot.loader.systemd-boot.enable = true;
@@ -17,7 +14,7 @@ in
   boot.swraid.enable = true;
   boot.swraid.mdadmConf = ''
     MAILADDR root
-    ARRAY /dev/md0 level=raid1 num-devices=2 metadata=1.2 UUID=${mdadmUUID}
+    ARRAY /dev/md0 level=raid1 num-devices=2 metadata=1.2
   '';
   # Get md0 UUID: mdadm --detail /dev/md0 | grep UUID
 
@@ -95,7 +92,7 @@ boot.initrd.luks.devices."cryptdata" = {
     }
   ];
 
-  environment.systemPackages = with pkgs; [ neovim curl wget vim git htop lvm2 mdadm bcache-tools cryptsetup ];
+  environment.systemPackages = with pkgs; [ neovim curl wget vim git htop lvm2 tree mdadm bcache-tools cryptsetup ];
 
   system.stateVersion = "26.05"; # keep this pinned to the release you installed with
 }
