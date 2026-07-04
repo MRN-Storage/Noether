@@ -20,7 +20,7 @@
       system = "x86_64-linux";
       modules = [
         disko.nixosModules.disko
-        microvm.nixosSystem.host
+        microvm.nixosModules.host
         ./hosts/nas/configuration.nix
         ./hosts/nas/disko.nix
         ./modules/microvm-host.nix
