@@ -17,7 +17,7 @@
     };
 
     virtualHosts."auth.nas.lan" = {
-      locations."/".proxyPass = "https://127.0.0.1:8443";
+      locations."/".proxyPass = "https://10.100.0.2:8443";
     };
   };
 }
