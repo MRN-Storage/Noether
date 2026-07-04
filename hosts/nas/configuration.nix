@@ -1,9 +1,4 @@
 { config, pkgs, ... }:
-let
-  # Fill in after running install.sh, then run the sed commands below
-  luksUUID  = "<bcache0-luks-uuid>";  # blkid -s UUID -o value /dev/bcache0
-  mdadmUUID = "<md0-uuid>";           # mdadm --detail /dev/md0 | grep UUID
-in
 {
   networking.hostName = "nas";
 
@@ -17,7 +12,7 @@ in
   boot.swraid.enable = true;
   boot.swraid.mdadmConf = ''
     MAILADDR root
-    ARRAY /dev/md0 level=raid1 num-devices=2 metadata=1.2 UUID=${mdadmUUID}
+    ARRAY /dev/md0 level=raid1 num-devices=2 metadata=1.2
   '';
   # Get md0 UUID: mdadm --detail /dev/md0 | grep UUID
 
