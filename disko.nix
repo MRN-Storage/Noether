@@ -86,34 +86,5 @@
       type  = "mdadm";
       level = 1;
     };
-
-    # ============================================================
-    # LVM VG — vgdata (on /dev/mapper/cryptdata)
-    # Thin pool (pool0) is created via an activation script in nixos.nix.
-    # ============================================================
-    lvm_vg.vgdata = {
-      type = "lvm_vg";
-      lvs = {
-        immich = {
-          size = "2T";
-          content = {
-            type       = "filesystem";
-            format     = "ext4";
-            extraArgs  = [ "-L" "immich" ];
-            mountpoint = "/data/immich";
-          };
-        };
-
-        shared = {
-          size = "2T";
-          content = {
-            type       = "filesystem";
-            format     = "ext4";
-            extraArgs  = [ "-L" "shared" ];
-            mountpoint = "/data/shared";
-          };
-        };
-      };
-    };
   };
 }
