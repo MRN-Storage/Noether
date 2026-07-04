@@ -8,10 +8,27 @@ head -n -2 .ssh/known_hosts > .ssh/known_hosts
 
 ## TODOs
 ### Config
-- [ ] Convert setup.sh into disko
+- [ ] all mounts into `disko.nix`
+- [ ] tailscale?
+- [ ] kvm via nix
+    - [ ] research
+    - [ ] kanidm
+    - [ ] immich
+    - [ ] copyparty
+- [ ] local auth via kanidm
+- [ ] integrate sso via kanidm
 
 ### Instance
 - [ ] Change default password
+    - [ ] root password
+    - [ ] disk encryption
+
+## Further Ideas
+- [ ] Prepare access VPS
+- [ ] CI / CD
+- [ ] User sign-up procedure
+    - [ ] Usage monitoring
+
 
 ## Disk Partitioning and Replaying a Config
 Boot from an a live iso (see [[./iso/README.md]])
