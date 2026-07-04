@@ -29,6 +29,10 @@ in
     "bcache"                     # bcache backing + cache registration
     "dm_crypt" "dm_mod"          # LUKS / device-mapper
     "dm_thin_pool"               # LVM thin provisioning
+    "usb_storage"
+    "uas"      # if the device uses USB Attached SCSI
+    "xhci_pci" # USB 3 controllers
+    "ehci_pci" # USB 2 controllers if needed
   ];
   boot.initrd.systemd.extraBin = {
   thin_check = "${pkgs.thin-provisioning-tools}/bin/thin_check";
@@ -44,9 +48,9 @@ boot.initrd.luks.devices."cryptdata" = {
     allowDiscards = false;
 
     # USB stick keyfile — the raw USB device/partition is used directly as the key.
-    # keyFile = "/dev/disk/by-id/usb-USB_Flash_Disk_SCY0000000039178-0:0";
-    # keyFileSize = 4096;
-    fallbackToPassword = true;
+    keyFile = "/dev/disk/by-id/usb-USB_Flash_Disk_SCY0000000039178-0:0";
+    keyFileSize = 4096;
+    # fallbackToPassword = true;
   };
 
 
