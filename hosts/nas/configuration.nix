@@ -46,7 +46,7 @@ boot.initrd.luks.devices."cryptdata" = {
     # USB stick keyfile — the raw USB device/partition is used directly as the key.
     # keyFile = "/dev/disk/by-id/usb-USB_Flash_Disk_SCY0000000039178-0:0";
     # keyFileSize = 4096;
-    # fallbackToPassword = true;
+    fallbackToPassword = true;
   };
 
 
