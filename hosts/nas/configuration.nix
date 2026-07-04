@@ -38,14 +38,10 @@ in
   # the entry below is illustrative; confirm/merge with the generated file.
   # /boot and / are mounted by disko-generated fileSystems — not declared here.
   # Fill in UUID after first install: blkid -s UUID -o value /dev/bcache0
-  boot.initrd.luks.devices."cryptdata" = {
-    device = "/dev/disk/by-uuid/${luksUUID}";
-    allowDiscards = false; # bcache handles caching; leave TRIM off on LUKS
-  };
 
 boot.initrd.luks.devices."cryptdata" = {
     device = "/dev/bcache0";   # or by UUID: "/dev/disk/by-uuid/<uuid-of-bcache0>"
-    allowDiscards = true;      # optional; enable if bcache writeback + TRIM is desired
+    allowDiscards = false;
 
     # USB stick keyfile — the raw USB device/partition is used directly as the key.
     keyFile = "/dev/disk/by-id/usb-USB_Flash_Disk_SCY0000000039178-0:0";
