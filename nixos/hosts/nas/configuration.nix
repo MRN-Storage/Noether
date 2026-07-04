@@ -16,8 +16,10 @@
   '';
 
   # bcache must be available in the initrd
-  boot.initrd.availableKernelModules = [ "bcache" ];
-
+  boot.initrd.availableKernelModules = [ "bcache" "dm-thin-pool" ];
+  boot.initrd.systemd.extraBin = {
+  thin_check = "${pkgs.thin-provisioning-tools}/bin/thin_check";
+  };
   # LUKS on top of the bcache device (bcache0 = cached md0)
   # hardware-configuration.nix will generate this block with the real UUID â€”
   # the entry below is illustrative; confirm/merge with the generated file.

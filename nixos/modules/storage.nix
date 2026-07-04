@@ -14,9 +14,4 @@
     device = "/dev/vgdata/shared";
     fsType = "ext4";
   };
-
-  fileSystems."/data/backup" = {
-    device = "/dev/vgdata/backup";
-    fsType = "ext4";
-  };
 }
