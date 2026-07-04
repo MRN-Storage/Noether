@@ -85,16 +85,6 @@
     mdadm.md0 = {
       type  = "mdadm";
       level = 1;
-      content = {
-        type    = "luks";
-        name    = "cryptdata";
-        # Real device is /dev/bcache0 (set in nixos.nix).
-        # This entry is here so disko knows the LVM PV lives under LUKS.
-        content = {
-          type = "lvm_pv";
-          vg   = "vgdata";
-        };
-      };
     };
 
     # ============================================================
