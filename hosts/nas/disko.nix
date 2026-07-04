@@ -1,3 +1,6 @@
+# disko.nix — disk layout
+# bcache is set up in initrd (see nixos.nix); disko handles everything else.
+
 { ... }:
 {
   disko.devices = {
@@ -34,16 +37,11 @@
             };
           };
 
-          # p3 — bcache SSD cache tier
+          # p3 — bcache SSD cache tier; formatted by initrd postDeviceCommands
           bcache_cache = {
             name = "bcache_cache";
             size = "100%";
-            content = {
-              type = "bcache";
-              role = "cache";
-              # cacheMode can be "writeback" | "writethrough" | "writearound"
-              cacheMode = "writeback";
-            };
+            # no content block — owned by bcache
           };
         };
       };
@@ -80,37 +78,13 @@
 
     # ============================================================
     # RAID1 — md0
-    # md0 is used as a bcache backing device, exposing /dev/bcache0.
-    # LUKS sits on top of bcache0.
+    # bcache sits on top of md0; LUKS sits on top of bcache0.
+    # disko opens LUKS here for the LVM PV declaration, but the actual
+    # device path is overridden in nixos.nix via boot.initrd.luks.
     # ============================================================
     mdadm.md0 = {
       type  = "mdadm";
       level = 1;
-      content = {
-        type  = "bcache";
-        role  = "backing";
-        # References the cache partition registered above
-        cacheName = "bcache_cache";
-        content = {
-          type = "luks";
-          name = "cryptdata";
-
-          settings = {
-            allowDiscards = false;
-          };
-
-          extraOpenArgs = [
-            "--key-file=/dev/disk/by-id/usb-USB_Flash_Disk_SCY0000000039178-0:0"
-            "--keyfile-size=4096"
-          ];
-
-          content = {
-            type       = "filesystem";
-            format     = "ext4";
-            mountpoint = "/data";
-          };
-        };
-      };
     };
   };
 }
