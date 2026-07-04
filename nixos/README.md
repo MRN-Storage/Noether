@@ -1,6 +1,6 @@
 # Disk Partitioning and Replaying a Config
 Boot from an a live iso (see [[./iso/README.md]])
-and clone this repository.
+and `cp -r /opt/Noether . && cd Noether/nixos`.
 
 ```sh
 # 1. Partition disks + assemble RAID
