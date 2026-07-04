@@ -23,11 +23,15 @@ sudo nix run github:nix-community/disko \
     --extra-experimental-features "nix-command flakes" -- \
     --mode mount ./hosts/nas/disko.nix
 
-# 4a. Generate hardware config
+# 4a. Generate hardware config (optional)
 nixos-generate-config --root /mnt --show-hardware-config > ./hosts/nas/hardware-configuration.nix
 git add ./hosts/nas/hardware-configuration.nix
+# then you must uncomment this file from flake.nix
+# and comment disko instead.
 
 # 5. Install
+sudo cp ./ /mnt/etc/nixos
+cd !$
 sudo nixos-install --root /mnt --flake .#nas
 ```
 
