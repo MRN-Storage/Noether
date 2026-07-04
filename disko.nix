@@ -18,7 +18,7 @@
           boot = {
             name = "boot";
             size = "4G";
-            type = "EFI";
+            type = "EF00";
             content = {
               type         = "filesystem";
               format       = "vfat";
