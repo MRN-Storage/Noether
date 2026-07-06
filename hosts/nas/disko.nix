@@ -104,10 +104,7 @@
           keyFile = "/dev/disk/by-partlabel/DATA-KEY";
         };
 
-        content = {
-          type = "lvm_pv";
-          vg = "vg0";
-        };
+        content = { type = "lvm_pv"; vg = "vg0"; };
       };
     };
 
