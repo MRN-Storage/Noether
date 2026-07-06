@@ -27,6 +27,23 @@
     gateway = [ "10.100.0.1" ];
   };
 
+  # SSH-Zugriff
+  services.openssh = {
+    enable = true;
+    settings = {
+      PasswordAuthentication = false;
+      PermitRootLogin = "no";
+    };
+  };
+
+  users.users.admin = {
+    isNormalUser = true;
+    extraGroups = [ "wheel" ];
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAJcaxcyE3YI7QYwFeux/qmmH1bQ5BpYWh51ZydZfhcB admin@nas"
+    ];
+  };
+
   imports = [ ../../modules/kanidm.nix ];
 
   system.stateVersion = "26.05";
