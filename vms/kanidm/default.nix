@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 {
   microvm = {
     vcpu = 2;
@@ -17,6 +17,8 @@
       size       = 4096; # MB
     }];
   };
+
+  environment.systemPackages = [ pkgs.openssl ];
 
   networking.hostName = "kanidm-vm";
   networking.useNetworkd = true;
