@@ -4,6 +4,7 @@
     vcpu = 2;
     mem  = 1024;
     hypervisor = "qemu";
+    vsock.cid = 3;
 
     interfaces = [{
       type = "tap";
