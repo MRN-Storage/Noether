@@ -8,7 +8,7 @@ head -n -2 .ssh/known_hosts > .ssh/known_hosts
 
 ## TODOs
 ### Config
-- [ ] all mounts into `disko.nix`
+- [x] all mounts into `disko.nix` (did something different)
 - [ ] tailscale?
 - [ ] kvm via nix
     - [ ] research

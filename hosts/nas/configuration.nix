@@ -16,40 +16,6 @@
     MAILADDR root
     ARRAY /dev/md0 level=raid1 num-devices=2 metadata=1.2
   '';
-  # Get md0 UUID: mdadm --detail /dev/md0 | grep UUID
-
-  boot.kernelModules = [ "dm_thin_pool" ];
-
-  boot.initrd.availableKernelModules = [
-    "nvme" "ahci" "sd_mod"       # storage controllers
-    "md_mod" "raid1"             # RAID1 / md assembly
-    "bcache"                     # bcache backing + cache registration
-    "dm_crypt" "dm_mod"          # LUKS / device-mapper
-    "dm_thin_pool"               # LVM thin provisioning
-    "usb_storage"
-    "uas"      # if the device uses USB Attached SCSI
-    "xhci_pci" # USB 3 controllers
-    "ehci_pci" # USB 2 controllers if needed
-  ];
-  boot.initrd.systemd.extraBin = {
-  thin_check = "${pkgs.thin-provisioning-tools}/bin/thin_check";
-  };
-  # LUKS on top of the bcache device (bcache0 = cached md0)
-  # hardware-configuration.nix will generate this block with the real UUID â€”
-  # the entry below is illustrative; confirm/merge with the generated file.
-  # /boot and / are mounted by disko-generated fileSystems — not declared here.
-  # Fill in UUID after first install: blkid -s UUID -o value /dev/bcache0
-
-boot.initrd.luks.devices."cryptdata" = {
-    device = "/dev/bcache0";   # or by UUID: "/dev/disk/by-uuid/<uuid-of-bcache0>"
-    allowDiscards = false;
-
-    # USB stick keyfile — the raw USB device/partition is used directly as the key.
-    keyFile = "/dev/disk/by-id/usb-USB_Flash_Disk_SCY0000000039178-0:0";
-    keyFileSize = 4096;
-    # fallbackToPassword = true;
-  };
-
 
   boot.initrd.services.lvm.enable = true;
 

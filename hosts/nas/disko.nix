@@ -6,7 +6,7 @@
   disko.devices = {
 
     # ============================================================
-    # NVMe: system disk (boot + root + bcache cache partition)
+    # NVMe: system disk (boot + root + lvm cache partition)
     # ============================================================
     disk.nvme = {
       type   = "disk";
@@ -37,18 +37,28 @@
             };
           };
 
-          # p3 — bcache SSD cache tier; formatted by initrd postDeviceCommands
-          bcache_cache = {
-            name = "bcache_cache";
+          cache = {
+            name = "cache";
             size = "100%";
-            # no content block — owned by bcache
+            content = {
+              type = "luks";
+              name = "cryptcache";
+
+              keyFile = "/dev/disk/by-partlabel/CACHE-KEY";
+              settings = {
+                allowDiscards = true;
+                keyFile = "/dev/disk/by-partlabel/CACHE-KEY";
+              };
+
+              content = { type = "bcache_cache"; set = "main"; };
+            };
           };
         };
       };
     };
 
     # ============================================================
-    # HDDs — RAID1 members
+    # HDDs: RAID1 members
     # ============================================================
     disk.sda = {
       type   = "disk";
@@ -77,14 +87,46 @@
     };
 
     # ============================================================
-    # RAID1 — md0
-    # bcache sits on top of md0; LUKS sits on top of bcache0.
-    # disko opens LUKS here for the LVM PV declaration, but the actual
-    # device path is overridden in nixos.nix via boot.initrd.luks.
+    # VG0: Contains RAID1
     # ============================================================
     mdadm.md0 = {
       type  = "mdadm";
       level = 1;
+      extraArgs = [  
+        "--bitmap=internal"  
+      ];
+
+      content = {
+        type = "luks";
+        name = "cryptdata";
+
+        keyFile = "/dev/disk/by-partlabel/DATA-KEY";
+        settings = {
+          allowDiscards = true;
+          keyFile = "/dev/disk/by-partlabel/DATA-KEY";
+        };
+
+        content = { type = "bcache_backing"; set = "main"; };
+      };
+    };
+
+    bcache = {
+      main = {
+        type = "bcache";
+        device = "/dev/bcache0";
+        cacheMode = "writeback";
+        content = { type = "lvm_pv"; vg = "vg0"; };
+      };
+    };
+
+    lvm_vg.vg0 = {  
+      type = "lvm_vg";  
+      lvs = {  
+        thinpool = {  
+          size = "7.2t";  
+          lvm_type = "thin-pool";
+        };
+      };
     };
   };
 }

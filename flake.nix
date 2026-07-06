@@ -5,7 +5,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
 
     disko = {
-      url = "github:nix-community/disko";
+      url = "github:MRN-Storage/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -22,6 +22,7 @@
         disko.nixosModules.disko
         microvm.nixosModules.host
         ./hosts/nas/configuration.nix
+        ./hosts/nas/hardware-configuration.nix
         ./hosts/nas/disko.nix
         ./modules/microvm-host.nix
         ./modules/proxy.nix
