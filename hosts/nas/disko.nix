@@ -91,7 +91,7 @@
       type  = "mdadm";
       level = 1;
       extraArgs = [  
-        "--write-intent-bitmap=internal"  
+        "--bitmap=internal"  
       ];
 
       content = {
