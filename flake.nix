@@ -16,6 +16,15 @@
   };
 
   outputs = { self, nixpkgs, disko, microvm, ... }: {
+
+    nixosConfigurations.kanidm = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      modules = [
+        microvm.nixosModules.microvm
+        ./vms/kanidm/default.nix
+      ];
+    };
+    
     nixosConfigurations.nas = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
