@@ -6,7 +6,7 @@
   disko.devices = {
 
     # ============================================================
-    # NVMe: system disk (boot + root + bcache cache partition)
+    # NVMe: system disk (boot + root + lvm cache partition)
     # ============================================================
     disk.nvme = {
       type   = "disk";
@@ -37,18 +37,26 @@
             };
           };
 
-          # p3 — bcache SSD cache tier; formatted by initrd postDeviceCommands
-          bcache_cache = {
-            name = "bcache_cache";
-            size = "100%";
-            # no content block — owned by bcache
+          cache = {
+            name = "cache";
+            size = "98%";
+            content = {
+              type = "luks";
+              name = "cryptcache";
+
+              additionalKeyFiles = [ "/dev/disk/by-partlabel/CACHE-KEY" ]; # ToDo: fill
+              settings = {
+                allowDiscards = true;
+                keyFile = "/dev/disk/by-partlabel/CACHE-KEY";
+              };
+            };
           };
         };
       };
     };
 
     # ============================================================
-    # HDDs — RAID1 members
+    # HDDs: RAID1 members
     # ============================================================
     disk.sda = {
       type   = "disk";
@@ -77,14 +85,47 @@
     };
 
     # ============================================================
-    # RAID1 — md0
-    # bcache sits on top of md0; LUKS sits on top of bcache0.
-    # disko opens LUKS here for the LVM PV declaration, but the actual
-    # device path is overridden in nixos.nix via boot.initrd.luks.
+    # VG0: Contains RAID1
     # ============================================================
     mdadm.md0 = {
       type  = "mdadm";
       level = 1;
+      content = {
+        type = "luks";
+        name = "cryptdata";
+
+        additionalKeyFiles = [ "/dev/disk/by-partlabel/DATA-KEY" ]; # ToDo: fill
+        settings = {
+          allowDiscards = true;
+          keyFile = "/dev/disk/by-partlabel/DATA-KEY";
+        };
+
+        content = {
+          type = "lvm_pv";
+          vg = "vg0";
+        };
+      };
+    };
+
+    lvm_vg.vg0 = {  
+      type = "lvm_vg";  
+      lvs = {  
+        thinpool = {  
+          size = "95%";  
+          lvm_type = "thin-pool";
+            postCreateHook = ''
+              pvcreate --yes /dev/disk/by-partlabel/cryptcache
+              vgextend --yes vg0 /dev/disk/by-partlabel/cryptcache
+              lvcreate --yes -l 100%FREE -n cache_lv vg0 /dev/disk/by-partlabel/cryptcache
+
+              # Convert the LV into a cache pool
+              lvconvert --yes --type cache-pool vg0/cache_lv
+
+              # Attach the cache pool to the thin pool
+              lvconvert --yes --type cache --cachepool vg0/cache_lv vg0/thinpool
+          '';
+        };
+      };
     };
   };
 }
