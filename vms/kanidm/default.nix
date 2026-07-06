@@ -44,6 +44,8 @@
     ];
   };
 
+  security.sudo.wheelNeedsPassword = false;
+
   imports = [ ../../modules/kanidm.nix ];
 
   system.stateVersion = "26.05";
