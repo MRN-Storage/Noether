@@ -90,6 +90,10 @@
     mdadm.md0 = {
       type  = "mdadm";
       level = 1;
+      extraArgs = [  
+        "--write-intent-bitmap=internal"  
+      ];
+
       content = {
         type = "luks";
         name = "cryptdata";
