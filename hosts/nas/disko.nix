@@ -110,11 +110,13 @@
       };
     };
 
-    bcache.main = {
-      type = "bcache";
-      device = "/dev/bcache0";
-      cacheMode = "writeback";
-      content = { type = "lvm_pv"; vg = "vg0"; };
+    bcache = {
+      main = {
+        type = "bcache";
+        device = "/dev/bcache0";
+        cacheMode = "writeback";
+        content = { type = "lvm_pv"; vg = "vg0"; };
+      };
     };
 
     lvm_vg.vg0 = {  
