@@ -1,6 +1,10 @@
 { ... }:
 
 {
+  networking.hosts = {
+    "10.100.0.2" = [ "auth.nas.lan" ];
+  };
+  
   services.caddy = {
     enable = true;
     virtualHosts."auth.nas.lan".extraConfig = ''
