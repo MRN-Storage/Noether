@@ -44,7 +44,7 @@
               type = "luks";
               name = "cryptcache";
 
-              additionalKeyFiles = [ "/dev/disk/by-partlabel/CACHE-KEY" ]; # ToDo: fill
+              keyFile = "/dev/disk/by-partlabel/CACHE-KEY";
               settings = {
                 allowDiscards = true;
                 keyFile = "/dev/disk/by-partlabel/CACHE-KEY";
@@ -94,7 +94,7 @@
         type = "luks";
         name = "cryptdata";
 
-        additionalKeyFiles = [ "/dev/disk/by-partlabel/DATA-KEY" ]; # ToDo: fill
+        keyFile = "/dev/disk/by-partlabel/DATA-KEY";
         settings = {
           allowDiscards = true;
           keyFile = "/dev/disk/by-partlabel/DATA-KEY";
