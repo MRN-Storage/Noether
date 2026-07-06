@@ -39,7 +39,7 @@
 
           cache = {
             name = "cache";
-            size = "98%";
+            size = "100%";
             content = {
               type = "luks";
               name = "cryptcache";
