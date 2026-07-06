@@ -29,5 +29,13 @@
 
   imports = [ ../../modules/kanidm.nix ];
 
+  services.openssh = {
+    enable = true;
+    listenAddresses = [
+      { addr = "0.0.0.0"; port = 22; }          # keep normal networking if you have any
+      { addr = "vsock"; port = 22; }             # ssh over vsock, if your openssh build supports it
+    ];
+  };
+
   system.stateVersion = "26.05";
 }
