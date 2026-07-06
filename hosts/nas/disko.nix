@@ -113,17 +113,6 @@
         thinpool = {  
           size = "95%";  
           lvm_type = "thin-pool";
-            postCreateHook = ''
-              pvcreate --yes /dev/disk/by-partlabel/cryptcache
-              vgextend --yes vg0 /dev/disk/by-partlabel/cryptcache
-              lvcreate --yes -l 100%FREE -n cache_lv vg0 /dev/disk/by-partlabel/cryptcache
-
-              # Convert the LV into a cache pool
-              lvconvert --yes --type cache-pool vg0/cache_lv
-
-              # Attach the cache pool to the thin pool
-              lvconvert --yes --type cache --cachepool vg0/cache_lv vg0/thinpool
-          '';
         };
       };
     };
