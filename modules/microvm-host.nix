@@ -15,7 +15,7 @@
   networking.nat = {
     enable = true;
     internalInterfaces = [ "br-vms" ];
-    externalInterface = "eth0"; # <-- set to your actual uplink NIC name
+    externalInterface = "enp4s0"; # <-- set to your actual uplink NIC name
   };
 
   boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
