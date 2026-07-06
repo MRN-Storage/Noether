@@ -26,6 +26,8 @@
     fi
   '';
 
+  imports = [ ./kanidm-provision.nix ];
+
   # Open the firewall port inside the KVM VM so Caddy can reach it
   networking.firewall.allowedTCPPorts = [ 8443 ];
 }
