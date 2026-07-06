@@ -112,7 +112,7 @@
       type = "lvm_vg";  
       lvs = {  
         thinpool = {  
-          size = "95%";  
+          size = "98%";  
           lvm_type = "thin-pool";
         };
       };
