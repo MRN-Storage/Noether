@@ -4,6 +4,7 @@
     vcpu = 2;
     mem  = 1024;
     hypervisor = "qemu";
+    vsock.cid = 3;
 
     interfaces = [{
       type = "tap";
@@ -27,6 +28,25 @@
     address = [ "10.100.0.2/24" ];
     gateway = [ "10.100.0.1" ];
   };
+
+  # SSH-Zugriff
+  services.openssh = {
+    enable = true;
+    settings = {
+      PasswordAuthentication = false;
+      PermitRootLogin = "no";
+    };
+  };
+
+  users.users.admin = {
+    isNormalUser = true;
+    extraGroups = [ "wheel" ];
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAJcaxcyE3YI7QYwFeux/qmmH1bQ5BpYWh51ZydZfhcB admin@nas"
+    ];
+  };
+
+  security.sudo.wheelNeedsPassword = false;
 
   imports = [ ../../modules/kanidm.nix ];
 
