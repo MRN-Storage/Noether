@@ -49,6 +49,8 @@
                 allowDiscards = true;
                 keyFile = "/dev/disk/by-partlabel/CACHE-KEY";
               };
+
+              content = { type = "bcache_cache"; set = "main"; };
             };
           };
         };
@@ -104,8 +106,15 @@
           keyFile = "/dev/disk/by-partlabel/DATA-KEY";
         };
 
-        content = { type = "lvm_pv"; vg = "vg0"; };
+        content = { type = "bcache_backing"; set = "main"; };
       };
+    };
+
+    bcache.main = {
+      type = "bcache";
+      device = "/dev/bcache0";
+      cacheMode = "writeback";
+      content = { type = "lvm_pv"; vg = "vg0"; };
     };
 
     lvm_vg.vg0 = {  
