@@ -114,6 +114,7 @@
         thinpool = {  
           size = "7.4t";  
           lvm_type = "thin-pool";
+          extraArgs = [ "/dev/md0" ];
         };
       };
     };
