@@ -23,7 +23,7 @@
 
   services.kanidm.enableClient = true;
   
-  services.kanidm.client.settings.uri = "https://auth.nas.lan";
+  services.kanidm.client.settings.uri = "10.100.0.2";
 
   networking.hostName = "kanidm-vm";
   networking.useNetworkd = true;
