@@ -58,7 +58,7 @@
     }
   ];
 
-  environment.systemPackages = with pkgs; [ neovim curl wget vim git htop lvm2 tree mdadm bcache-tools cryptsetup ];
+  environment.systemPackages = with pkgs; [ kanidm_1_10 sl neovim curl wget vim git htop lvm2 tree mdadm bcache-tools cryptsetup ];
 
   system.stateVersion = "26.05"; # keep this pinned to the release you installed with
 }
