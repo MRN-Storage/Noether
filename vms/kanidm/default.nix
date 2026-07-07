@@ -23,7 +23,7 @@
 
   services.kanidm.enableClient = true;
   
-  services.kanidm.clientSettings = {
+  services.kanidm.client.settings = {
     "kanidm" = {
        uri = "https://auth.nas.lan";
     };
