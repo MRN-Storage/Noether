@@ -19,7 +19,9 @@
     }];
   };
 
-  environment.systemPackages = [ pkgs.openssl ];
+  environment.systemPackages = [ pkgs.openssl, pkgs.kanidm ];
+
+  services.kanidm.enableClient = true;
 
   networking.hostName = "kanidm-vm";
   networking.useNetworkd = true;
