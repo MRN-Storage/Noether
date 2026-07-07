@@ -22,6 +22,12 @@
   environment.systemPackages = [ pkgs.openssl pkgs.kanidm ];
 
   services.kanidm.enableClient = true;
+  
+  services.kanidm.clientSettings = {
+    "kanidm" = {
+       uri = "https://auth.nas.lan";
+    };
+  };
 
   networking.hostName = "kanidm-vm";
   networking.useNetworkd = true;
@@ -30,7 +36,7 @@
     address = [ "10.100.0.2/24" ];
     gateway = [ "10.100.0.1" ];
   };
-
+  
   # SSH-Zugriff
   services.openssh = {
     enable = true;
