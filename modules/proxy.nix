@@ -4,7 +4,8 @@
 
   services.caddy = {
     enable = true;
-    virtualHosts."auth.nas.lan".extraConfig = ''
+    virtualHosts = {
+      "auth.nas.lan".extraConfig = ''
       tls internal
       reverse_proxy https://10.100.0.2:8443 {
         transport http {
@@ -13,5 +14,12 @@
         }
       }
     '';
+
+      "immich.nas.lan".extraConfig = ''
+      tls internal
+      reverse_proxy 127.0.0.1:2283
+      '';  
+
+    };
   };
 }
