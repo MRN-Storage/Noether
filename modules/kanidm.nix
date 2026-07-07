@@ -2,7 +2,7 @@
 
 {
   services.kanidm = {
-    enableServer = true;
+    server.enable = true;
     package = pkgs.kanidm_1_10; 
     server.settings = {
       domain = "auth.nas.lan";
