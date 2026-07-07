@@ -16,5 +16,6 @@
 
     IMMICH_OIDC_CLIENT_SECRET =
       "exz7gt9h4dbbkjhbxvzd4wpqb9ut3fdxrkucrzw3y1w4zpfd";
+    };
   };
 }
