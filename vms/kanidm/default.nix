@@ -19,11 +19,7 @@
     }];
   };
 
-  environment.systemPackages = [ pkgs.openssl pkgs.kanidm_1_10 ];
-
-  services.kanidm.enableClient = true;
-  
-  services.kanidm.client.settings.uri = "https://auth.nas.lan";
+  environment.systemPackages = [ pkgs.openssl ];
 
   networking.hostName = "kanidm-vm";
   networking.useNetworkd = true;
