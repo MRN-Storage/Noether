@@ -36,7 +36,7 @@
         ./modules/microvm-host.nix
         ./modules/proxy.nix
         # ./modules/storage.nix
-        # ./modules/immich.nix
+        ./modules/immich.nix
         # ./modules/copyparty.nix
         # ./modules/copyparty-sso.nix
         
