@@ -19,7 +19,7 @@
     }];
   };
 
-  environment.systemPackages = [ pkgs.openssl pkgs.kanidm ];
+  environment.systemPackages = [ pkgs.openssl pkgs.kanidm_1_10 ];
 
   services.kanidm.enableClient = true;
   
